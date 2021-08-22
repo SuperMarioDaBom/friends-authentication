@@ -16,9 +16,13 @@ func main() {
 	nexServer.SetKerberosKeySize(16)
 	nexServer.SetAccessKey("ridfebb9")
 
-	nexServer.On("Packet", func(packet *nex.PacketV0) {
-		packetType := packet.GetType()
-		fmt.Println(packetType)
+	nexServer.On("Data", func(packet *nex.PacketV0) {
+		request := packet.RMCRequest()
+
+		fmt.Println("==Friends - Auth==")
+		fmt.Printf("Protocol ID: %#v\n", request.ProtocolID())
+		fmt.Printf("Method ID: %#v\n", request.MethodID())
+		fmt.Println("==================")
 	})
 
 	authenticationServer := nexproto.NewAuthenticationProtocol(nexServer)

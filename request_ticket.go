@@ -8,7 +8,7 @@ import (
 )
 
 func requestTicket(err error, client *nex.Client, callID uint32, userPID uint32, serverPID uint32) {
-	encryptedTicket, errorCode := generateKerberosTicket(userPID, serverPID, nexServer.GetKerberosKeySize())
+	encryptedTicket, errorCode := generateKerberosTicket(userPID, serverPID, nexServer.KerberosKeySize())
 
 	if errorCode != 0 {
 		fmt.Println("error")

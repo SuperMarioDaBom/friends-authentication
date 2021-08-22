@@ -12,4 +12,4 @@
 *.out
 
 # custom
-*.exe
+build
