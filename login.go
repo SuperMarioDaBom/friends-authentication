@@ -34,7 +34,7 @@ func login(err error, client *nex.Client, callID uint32, username string) {
 	}
 
 	// Build the response body
-	stationURL := "prudps:/address=192.168.0.13;port=60001;CID=1;PID=2;sid=1;stream=10;type=2"
+	stationURL := fmt.Sprintf("prudps:/address=%s;port=%s;CID=1;PID=2;sid=1;stream=10;type=2", config.SecureServerIP, config.SecureServerPort)
 	serverName := "Pretendo Friends Auth"
 
 	rvConnectionData := nex.NewRVConnectionData()

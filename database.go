@@ -15,7 +15,7 @@ var mongoDatabase *mongo.Database
 var mongoCollection *mongo.Collection
 
 func connectMongo() {
-	mongoClient, _ = mongo.NewClient(options.Client().ApplyURI("mongodb://127.0.0.1:27017/"))
+	mongoClient, _ = mongo.NewClient(options.Client().ApplyURI(config.MongoAddress))
 	mongoContext, _ = context.WithTimeout(context.Background(), 10*time.Second)
 	_ = mongoClient.Connect(mongoContext)
 

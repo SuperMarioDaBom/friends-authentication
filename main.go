@@ -8,18 +8,19 @@ import (
 )
 
 var nexServer *nex.Server
+var config *ServerConfig
 
 func main() {
 	nexServer = nex.NewServer()
-	nexServer.SetPrudpVersion(0)
-	nexServer.SetSignatureVersion(1)
-	nexServer.SetKerberosKeySize(16)
-	nexServer.SetAccessKey("ridfebb9")
+	nexServer.SetPrudpVersion(config.PrudpVersion)
+	nexServer.SetSignatureVersion(config.SignatureVersion)
+	nexServer.SetKerberosKeySize(config.KerberosKeySize)
+	nexServer.SetAccessKey(config.AccessKey)
 
 	nexServer.On("Data", func(packet *nex.PacketV0) {
 		request := packet.RMCRequest()
 
-		fmt.Println("==Friends - Auth==")
+		fmt.Printf("==%s==\r\n", config.ServerName)
 		fmt.Printf("Protocol ID: %#v\n", request.ProtocolID())
 		fmt.Printf("Method ID: %#v\n", request.MethodID())
 		fmt.Println("==================")
@@ -33,5 +34,5 @@ func main() {
 	// Handle RequestTicket RMC method
 	authenticationServer.RequestTicket(requestTicket)
 
-	nexServer.Listen(":60000")
+	nexServer.Listen(fmt.Sprintf(":%s", config.ServerPort))
 }
